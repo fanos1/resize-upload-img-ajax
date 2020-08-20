@@ -94,14 +94,15 @@ try {
 
 					$newName = rand();
 					$file = $upload_dir. $newName .".png";
-					// file_put_conten() will put the originally uploaded file in /dir/
-					// this is less safe. instead, use imagepng() to create new img on Server			
-					// Save the GD resource as PNG in the best possible quality (no compression)
-					// This will strip any metadata or invalid contents (including, the PHP backdoor)
-					// To block any possible exploits, consider increasing the compression level
+					/* file_put_conten() will put the originally uploaded file in /dir/
+					 * this is less safe. instead, use imagepng() to create new img on Server			
+					 * Save the GD resource as PNG in the best possible quality (no compression)
+					 * This will strip any metadata or invalid contents (including, the PHP backdoor)
+					 * To block any possible exploits, consider increasing the compression level
+					 */
 					$success = imagepng($isItImg, $file, 3); // Output a PNG image to either the browser or a file
-
 					// exit($file); // ./img_april/810176624.png
+
 					if ($success) 
 					{
 						$q = " INSERT INTO receipts (amount, receipt_date, proj_id, image) 
@@ -137,20 +138,9 @@ try {
 		} 		
 
 	} // $_POST
-
-	$q1 = "SELECT r.id, r.amount, r.receipt_date, r.proj_id, r.image, p.name AS projName
-  	FROM receipts AS r 
-  	INNER JOIN projects AS p ON r.proj_id = p.id
-  	ORDER BY id DESC ";
-
-	$db_results = $pdo->query($q1);	
-
 	
 } catch (PDOException $e) {
-	$message = 'irfanUnable to connect to the database server: ' . $e->getMessage() . ' in ' . 
-		$e->getFile() . ':' . $e->getLine();
-	// echo "<h3> $message </h3>";
-		echo "<h3> Database related Error! 1 </h3>";
+	$message = 'Database Error: ' . $e->getMessage() .' in '. $e->getFile() . ':' . $e->getLine();
 }
 
 
@@ -169,80 +159,66 @@ $formToken1 = $_SESSION['formtoken1'];
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 	<link rel="stylesheet" href="js/magnific/magnific-popup.css">
 	<link rel="stylesheet" href="css/main2.css">
-	<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <style type="text/css">
-        fieldset {
-        	border: 1px solid #ccc;
-        	padding: 16px;
-        }
-        input {margin-bottom: 10px;}
-        img {
-        	 max-width: 100%;
-  			height: auto;
-        }
-    </style>
+	<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">    
 </head>
 
-
 <body>
-<div class="container" id="errors">
-	<div class="col-12">
-	<?php 
-		echo $output;
-	 	foreach ($errors as $key => $value) {
-	 		echo '<div class="alert alert-danger">'.$value. '</div>';	 		
-	 	}
-	 ?>
-	 <div> <a href="/index.html"><strong>&#9776;  Home </strong></a> </div>
+	<div class="container" id="errors">
+		<div class="col-12">
+		<?php 
+			echo $output;
+		 	foreach ($errors as $key => $value) {
+		 		echo '<div class="alert alert-danger">'.$value. '</div>';	 		
+		 	}
+		 ?>
+		 <div> <a href="/index.html"><strong>&#9776;  Home </strong></a> </div>
+		</div>
 	</div>
-</div>
 
-<div class="container" id="form">	
-	<div class="col-6">
-	<form method="post" enctype="multipart/form-data" id="myform" action="" accept-charset="utf-8">
+	<div class="container" id="form">	
+		<div class="col-6">
+		<form method="post" enctype="multipart/form-data" id="myform" action="" accept-charset="utf-8">
 
-		<input type="hidden" name="formtoken1" value="<?php echo $_SESSION['formtoken1']; ?>" />   
-        <p class="hp" style="display: none;"> <input type="text" name="med" id="med" value=""> </p>
-				
-		<fieldset>
-			<legend><strong>Λεπτομέρειες σχετικά με την απόδειξη </strong></legend>
-			<input type="hidden" name="from[]" value="receipt1">				                
+			<input type="hidden" name="formtoken1" value="<?php echo $_SESSION['formtoken1']; ?>" />   
+	        <p class="hp" style="display: none;"> <input type="text" name="med" id="med" value=""> </p>
+					
+			<fieldset>
+				<legend><strong>Λεπτομέρειες σχετικά με την απόδειξη </strong></legend>
+				<input type="hidden" name="from[]" value="receipt1">				                
 
-			 <legend>ποσό - amount? </legend>			                                       
-            <input class="form-control" type="text" name="amount1" placeholder="3.50" />
+				 <legend>ποσό - amount? </legend>			                                       
+	            <input class="form-control" type="text" name="amount1" placeholder="3.50" />
 
-            <legend>Recipt Date </legend>
-            <input type="date" class="form-control" name="receipt_date1" value="2020-07-01" min="2020-07-01" max="2020-12-31" />
-            
-            <label for="projects">Proje</label>
-			<select name="projectlist1" class="form-control">
-			  <option value="1">Hugo</option>
-			  <option value="2">Vigo</option>
-			  <option value="3">Mangusta</option>
-			  <option value="4">Bremen</option>
-			</select>
-		
+	            <legend>Recipt Date </legend>
+	            <input type="date" class="form-control" name="receipt_date1" value="2020-07-01" min="2020-07-01" max="2020-12-31" />
+	            
+	            <label for="projects">Proje</label>
+				<select name="projectlist1" class="form-control">
+				  <option value="1">Hugo</option>
+				  <option value="2">Vigo</option>
+				  <option value="3">Mangusta</option>
+				  <option value="4">Bremen</option>
+				</select>
+			
+				<br/>
+				<input type="file" name="inputImgFile" id="inputImgFile" accept="image/x-png, image/gif, image/jpeg, image/jpg" />
+			</fieldset>	
 			<br/>
-			<input type="file" name="inputImgFile" id="inputImgFile" accept="image/x-png, image/gif, image/jpeg, image/jpg" />
-		</fieldset>	
-		<br/>
-		<!-- <input type="submit" id="btn" value="Gonder &rarr;" class="btn btn-success" /> -->
-	</form>
-	</div>		
-	<div class="col-6">			
-		<div id="message"> </div>  
-		<input type="button" value="Submit Image" id="button_resize" class="btn btn-success" />
+			<!-- <input type="submit" id="btn" value="Gonder &rarr;" class="btn btn-success" /> -->
+		</form>
+		</div>		
+		<div class="col-6">			
+			<div id="message"> </div>  
+			<input type="button" value="Submit Image" id="button_resize" class="btn btn-success" />
+		</div>
 	</div>
-</div>
 
 
-
-
-<div class="container">
-	<div class="col-12">		
-		<img src="" id="resizedimage" class="img-responsive">
+	<div class="container">
+		<div class="col-12">		
+			<img src="" id="resizedimage" class="img-responsive">
+		</div>
 	</div>
-</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -336,7 +312,7 @@ $(document).ready( function () {
 								$('div#message').append('<div class="alert alert-danger"> Error!. </div>');
 							}
 
-			            });//Ajax
+			            });
 			    	};//img.Load()
 
 			    }	    
@@ -354,7 +330,6 @@ $(document).ready( function () {
 	resizeButton.addEventListener("click", function (evt) {
 		ResizeImage(evt); //call to resize
 	});
-
 
 
 });
