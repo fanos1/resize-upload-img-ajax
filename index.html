@@ -1,0 +1,122 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>	
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<title>Universe Yachting | SUPERYACHT Finishing Contractors</title>
+	<meta name="description" content="Universe Yachting is a Greek and UK based contractor/subcontractor company. We specialise in fairing and painting superyachts in Europe">  
+	<meta name="keywords" content="superyacht fairing, superyacht finishing, SUPERYACHT contractors, superyacht workforce, SUPERYACHT FAIRING & PAINTING">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+	<meta property="og:site_name" content="UNIVERSE Yachting"/>
+	<meta property="og:title" content="Universe Yachting"/>
+	<meta property="og:url" content="https://universeyachting.eu/" />
+	<meta property="og:type" content="website"/>
+	<meta property="og:description" content="UNIVERSE Yachting offers painting, fairing and finishing services to superyachts as well as industrial painting services."/>
+	<meta property="og:image" content="https://universeyachting.eu/img/hero-image.jpg"/>
+
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="apple-touch-icon" href="icon.png"><!-- Place favicon.ico in the root directory -->
+
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/main2.css">
+	<style type="text/css">
+		/* Onscroll animat */
+		.come-inY {
+			  transform: translateY(150px);
+			  animation: come-in 0.8s ease forwards;
+		}
+			
+		.come-inY:nth-child(odd) {
+			  animation-duration: 0.6s;
+		}
+			
+		.already-visible {
+			  transform: translateY(0);
+			  animation: none;
+		}
+			
+		@keyframes come-in {
+			  to {
+				transform: translateY(0);
+			  }
+		}
+
+		/* x axis  */
+		.come-inX {
+			  transform: translateX(150px);
+			  animation: animateX 0.8s ease forwards;
+		}
+			
+		.come-inX:nth-child(odd) {
+			  animation-duration: 0.6s;
+		}
+			
+		.already-visible {
+			  transform: translateX(0);
+			  animation: none;
+		}
+			
+		@keyframes animateX {
+			  to {
+				transform: translateX(0);
+			  }
+		}
+  </style>
+</head>
+
+
+<body>
+
+<div class="container">	
+
+	<header id="sidebar">
+		<a href="index.html" title="home page" style="margin:0; padding:0;">
+			<img src="img/logo.png" id="logo" class="img-responsive" alt="logo" />	
+		</a>
+		
+		<span id="menu-icon"> MENU &#9776;</span>		
+		<nav id="mb-menu-container">
+		  	<a href="index.html">Home</a>
+		    <a href="./upload.php">Upload receipt</a>
+		    <a href="./receipt-report.php">Receipt report</a>
+		</nav>
+		
+	</header>
+	
+	
+	<main id="main">
+
+
+	</main>		
+		
+</div>
+
+
+<script type="text/javascript">
+	var tracker = "hidden"; // default			
+	var menu_icon = document.getElementById('menu-icon');			
+	var mbMenuCont= document.getElementById('mb-menu-container');
+
+	menu_icon.onclick = function() {
+	
+		if (tracker == "hidden") {						
+			//mbMenuCont.style.transition = "all 2s"; 				
+			mbMenuCont.style.display = "block";	
+			
+			tracker = "showing";
+		} else if (tracker == "showing") { 					
+			mbMenuCont.style.display = "none";				
+			tracker = "hidden";
+		}	
+	};
+</script>
+
+  <script src="js/vendor/modernizr-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+  
+
+</body>
+</html>
+
